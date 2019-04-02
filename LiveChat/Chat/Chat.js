@@ -20,17 +20,27 @@ export default class Chat extends React.Component {
         },
       },
     };
-    GLOBAL.visitorSDK.on('new_message', this.handleNewMessage.bind(this));
-    GLOBAL.visitorSDK.on('agent_changed', this.handleAgentChanged.bind(this));
-    GLOBAL.visitorSDK.on('status_changed', this.handleStateChange.bind(this));
-    GLOBAL.visitorSDK.on('typing_indicator', this.handleTypingIndicator.bind(this));
-    GLOBAL.visitorSDK.on('chat_ended', this.handleChatEnded.bind(this));
-    GLOBAL.visitorSDK.on('visitor_data', this.hendleVisitorData.bind(this));
+    GLOBAL.visitorSDK.on('new_message', this.handleNewMessage);
+    GLOBAL.visitorSDK.on('agent_changed', this.handleAgentChanged);
+    GLOBAL.visitorSDK.on('status_changed', this.handleStateChange);
+    GLOBAL.visitorSDK.on('typing_indicator', this.handleTypingIndicator);
+    GLOBAL.visitorSDK.on('chat_ended', this.handleChatEnded);
+    GLOBAL.visitorSDK.on('visitor_data', this.hendleVisitorData);
 
-    this.handleInputTextChange = this.handleInputTextChange.bind(this);
-    this.handleSend = this.handleSend.bind(this);
-    this.renderFooter = this.renderFooter.bind(this);
+    this.handleInputTextChange = this.handleInputTextChange;
+    this.handleSend = this.handleSend;
+    this.renderFooter = this.renderFooter;
   }
+
+  componentWillUnmount = () => {
+    GLOBAL.visitorSDK.off('new_message', this.handleNewMessage);
+    GLOBAL.visitorSDK.off('agent_changed', this.handleAgentChanged);
+    GLOBAL.visitorSDK.off('status_changed', this.handleStateChange);
+    GLOBAL.visitorSDK.off('typing_indicator', this.handleTypingIndicator);
+    GLOBAL.visitorSDK.off('chat_ended', this.handleChatEnded);
+    GLOBAL.visitorSDK.off('visitor_data', this.hendleVisitorData);
+  };
+  
 
   getVisitor = () => {
     const visitorId = Object.keys(this.state.users).find(userId => this.state.users[userId].type === 'visitor');
@@ -169,6 +179,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   container: {
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
