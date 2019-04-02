@@ -1,10 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, Dimensions, Platform } from 'react-native';
-import { init } from '@livechat/livechat-visitor-sdk';
-import { View } from 'react-native-animatable';
+import { StyleSheet, Text, Dimensions, Platform, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { GiftedChat } from 'react-native-gifted-chat';
-import NavigationBar from './NavigationBar/NavigationBar';
 
 const { height, width } = Dimensions.get('window');
 const totalSize = num => (Math.sqrt((height * height) + (width * width)) * num) / 100;
@@ -135,11 +132,9 @@ export default class Chat extends React.Component {
     if (this.props.isChatOn) {
       return (
         <View
-          animation="lightSpeedIn"
           style={styles.container}
           ref={(ref) => { this.chat = ref; }}
         >
-          <NavigationBar chatTitle={this.props.chatTitle} closeChat={this.closeChat} />
           <Text style={styles.status}>
             { this.state.onlineStatus ? this.props.greeting : this.props.noAgents }
           </Text>
@@ -174,9 +169,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   container: {
-    width,
-    height: Platform.OS === 'ios' ? height : height - height / 25,
-    position: 'absolute',
     flexDirection: 'column',
     backgroundColor: '#fff',
   },
