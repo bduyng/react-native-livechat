@@ -144,6 +144,7 @@ export default class Chat extends React.Component {
             { this.state.onlineStatus ? this.props.greeting : this.props.noAgents }
           </Text>
           <GiftedChat
+            bottomOffset={this.props.bottomOffset || 0}
             messages={this.state.messages}
             renderFooter={this.renderFooter}
             onSend={this.handleSend}
