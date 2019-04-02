@@ -33,12 +33,7 @@ export default class Chat extends React.Component {
   }
 
   componentWillUnmount = () => {
-    GLOBAL.visitorSDK.off('new_message', this.handleNewMessage);
-    GLOBAL.visitorSDK.off('agent_changed', this.handleAgentChanged);
-    GLOBAL.visitorSDK.off('status_changed', this.handleStateChange);
-    GLOBAL.visitorSDK.off('typing_indicator', this.handleTypingIndicator);
-    GLOBAL.visitorSDK.off('chat_ended', this.handleChatEnded);
-    GLOBAL.visitorSDK.off('visitor_data', this.hendleVisitorData);
+    GLOBAL.visitorSDK.destroy();
   };
   
 
